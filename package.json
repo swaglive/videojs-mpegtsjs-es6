@@ -1,7 +1,7 @@
 {
-  "name": "videojs-flvjs-es6",
+  "name": "videojs-mpegtsjs-es6",
   "version": "1.0.1",
-  "description": "Video.js tech for FLV playback in MSE with flv.js use in es6 modules",
+  "description": "Video.js tech using mpegts.js for FLV playback. For ES6 modules.",
   "main": "src/plugin.js",
   "generator-videojs-plugin": {
     "version": "2.2.0"
@@ -16,15 +16,16 @@
   "keywords": [
     "videojs",
     "videojs-plugin",
+    "mpegts.js",
     "es module"
   ],
-  "author": "xlaoyu <frank_yll@163.com>",
+  "author": "bill42362 <bill42362@gmail.com>",
   "contributors": [],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Yuliang-Lee/videojs-flvjs-es6.git"
+    "url": "https://github.com/swaglive/videojs-mpegtsjs-es6"
   },
-  "bugs": "https://github.com/Yuliang-Lee/videojs-flvjs-es6/issues",
+  "bugs": "https://github.com/swaglive/videojs-mpegtsjs-es6/issues",
   "license": "Apache-2.0",
   "browserify": {
     "transform": [
@@ -36,9 +37,7 @@
     "sinon": "global:sinon",
     "video.js": "global:videojs"
   },
-  "style": "dist/videojs-flvjs.css",
   "videojs-plugin": {
-    "style": "dist/videojs-flvjs.css",
     "script": "dist/videojs-flvjs.min.js"
   },
   "vjsstandard": {
