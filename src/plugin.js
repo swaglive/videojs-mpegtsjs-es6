@@ -3,7 +3,7 @@
  */
 
 import videojs from 'video.js';
-import flvjs from 'flv.js';
+import mpegtsjs from 'mpegts.js';
 
 const Html5 = videojs.getTech('Html5');
 const mergeOptions = videojs.mergeOptions || videojs.util.mergeOptions;
@@ -12,7 +12,7 @@ const defaults = {
   config: {}
 };
 
-class Flvjs extends Html5 {
+class Mpegtsjs extends Html5 {
 
   /**
    * Create an instance of this Tech.
@@ -21,7 +21,7 @@ class Flvjs extends Html5 {
    *        The key/value store of player options.
    *
    * @param {Component~ReadyCallback} ready
-   *        Callback function to call when the `Flvjs` Tech is ready.
+   *        Callback function to call when the `Mpegtsjs` Tech is ready.
    */
    constructor(options, ready) {
      options = mergeOptions(defaults, options);
@@ -29,20 +29,20 @@ class Flvjs extends Html5 {
    }
 
    /**
-    * A getter/setter for the `Flvjs` Tech's source object.
+    * A getter/setter for the `Mpegtsjs` Tech's source object.
     *
     * @param {Tech~SourceObject} [src]
-    *        The source object you want to set on the `Flvjs` techs.
+    *        The source object you want to set on the `Mpegtsjs` techs.
     *
     * @return {Tech~SourceObject|undefined}
     *         - The current source object when a source is not passed in.
     *         - undefined when setting
     */
   setSrc(src) {
-    if (this.flvPlayer) {
+    if (this.mpegtsPlayer) {
       // Is this necessary to change source?
-      this.flvPlayer.detachMediaElement();
-      this.flvPlayer.destroy();
+      this.mpegtsPlayer.detachMediaElement();
+      this.mpegtsPlayer.destroy();
     }
 
     const mediaDataSource = this.options_.mediaDataSource;
@@ -50,18 +50,18 @@ class Flvjs extends Html5 {
 
     mediaDataSource.type = mediaDataSource.type === undefined ? 'flv' : mediaDataSource.type;
     mediaDataSource.url = src;
-    this.flvPlayer = flvjs.createPlayer(mediaDataSource, config);
-    this.flvPlayer.attachMediaElement(this.el_);
-    this.flvPlayer.load();
+    this.mpegtsPlayer = mpegtsjs.createPlayer(mediaDataSource, config);
+    this.mpegtsPlayer.attachMediaElement(this.el_);
+    this.mpegtsPlayer.load();
   }
 
   /**
-   * Dispose of flvjs.
+   * Dispose of mpegtsjs.
    */
   dispose() {
-    if (this.flvPlayer) {
-      this.flvPlayer.detachMediaElement();
-      this.flvPlayer.destroy();
+    if (this.mpegtsPlayer) {
+      this.mpegtsPlayer.detachMediaElement();
+      this.mpegtsPlayer.destroy();
     }
     super.dispose();
   }
@@ -69,23 +69,23 @@ class Flvjs extends Html5 {
 }
 
 /**
- * Check if the Flvjs tech is currently supported.
+ * Check if the Mpegtsjs tech is currently supported.
  *
  * @return {boolean}
- *          - True if the Flvjs tech is supported.
+ *          - True if the Mpegtsjs tech is supported.
  *          - False otherwise.
  */
-Flvjs.isSupported = function() {
+Mpegtsjs.isSupported = function() {
 
-  return flvjs && flvjs.isSupported();
+  return mpegtsjs && mpegtsjs.isSupported();
 };
 
 /**
- * Flvjs supported mime types.
+ * Mpegtsjs supported mime types.
  *
  * @constant {Object}
  */
-Flvjs.formats = {
+Mpegtsjs.formats = {
   'video/flv': 'FLV',
   'video/x-flv': 'FLV'
 };
@@ -97,8 +97,8 @@ Flvjs.formats = {
  *        The mimetype to check
  * @return {string} 'probably', 'maybe', or '' (empty string)
  */
-Flvjs.canPlayType = function(type) {
-  if (Flvjs.isSupported() && type in Flvjs.formats) {
+Mpegtsjs.canPlayType = function(type) {
+  if (Mpegtsjs.isSupported() && type in Mpegtsjs.formats) {
     return 'maybe';
   }
 
@@ -113,13 +113,13 @@ Flvjs.canPlayType = function(type) {
  *        The options passed to the tech
  * @return {string} 'probably', 'maybe', or '' (empty string)
  */
-Flvjs.canPlaySource = function(srcObj, options) {
-  return Flvjs.canPlayType(srcObj.type);
+Mpegtsjs.canPlaySource = function(srcObj, options) {
+  return Mpegtsjs.canPlayType(srcObj.type);
 };
 
 // Include the version number.
-Flvjs.VERSION = '__VERSION__';
+Mpegtsjs.VERSION = '__VERSION__';
 
-videojs.registerTech('Flvjs', Flvjs);
+videojs.registerTech('mpegtsjs', Mpegtsjs);
 
-export default Flvjs;
+export default Mpegtsjs;
