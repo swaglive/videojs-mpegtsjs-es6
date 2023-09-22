@@ -38,7 +38,7 @@ class Mpegtsjs extends Html5 {
     *         - The current source object when a source is not passed in.
     *         - undefined when setting
     */
-  setSrc(src) {
+  src(src) {
     if (this.mpegtsPlayer) {
       // Is this necessary to change source?
       this.mpegtsPlayer.detachMediaElement();
@@ -50,6 +50,8 @@ class Mpegtsjs extends Html5 {
 
     mediaDataSource.type = mediaDataSource.type === undefined ? 'flv' : mediaDataSource.type;
     mediaDataSource.url = src;
+    delete mediaDataSource.segments;
+
     this.mpegtsPlayer = mpegtsjs.createPlayer(mediaDataSource, config);
     this.mpegtsPlayer.attachMediaElement(this.el_);
     this.mpegtsPlayer.load();
